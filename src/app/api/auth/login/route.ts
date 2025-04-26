@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import clientPromise from '@/lib/mongodb';
+import { getConnectedClient } from '@/lib/mongodb';
 import type { LoginCredentials, UserResponse } from '@/types/user';
 
 if (!process.env.JWT_SECRET) {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const client = await clientPromise;
+        const client = await getConnectedClient();
         const db = client.db('auth-db');
 
         // Find user
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
         // Generate JWT token
         const token = sign(
             { userId: user._id.toString() },
-            process.env.JWT_SECRET,
+            process.env.JWT_SECRET as string,
             { expiresIn: '7d' }
         );
 

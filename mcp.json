@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--access-token",
+        "sbp_ec178cb2885004618c7a9dacd7568a7202d58221"
+      ]
+    },
+    "notionApi": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@notionhq/notion-mcp-server"
+      ],
+      "env": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer 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\", \"Notion-Version\": \"2022-06-28\" }"
+      },
+      "fromGalleryId": "awkoy.notion-mcp-server"
+    }
+  }
+}
