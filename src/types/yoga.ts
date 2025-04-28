@@ -96,3 +96,59 @@ export interface YogaPracticeUpdateBody {
     subCategoryId: string;
     subSubCategoryId?: string; // Optional: needed only for poses in level 4
 }
+
+// New types for timeline visualization
+export type YogaTimeRange = 'week' | 'month' | '3months';
+
+export interface YogaType {
+  name: string;
+  color: string;
+  intensityRange: {
+    min: number;
+    max: number;
+  };
+  frequency: number;
+}
+
+export interface YogaPracticeEntry {
+  id: string;
+  date: string;
+  type: string;
+  typeName: string;
+  color: string;
+  duration: number;
+  focus: string;
+  intensity: 'Gentle' | 'Moderate' | 'Vigorous';
+  props: string;
+}
+
+export interface YogaTimelineSummaryStats {
+  totalPractices: number;
+  totalMinutes: number;
+  typeDistribution: Record<string, number>;
+  averageDuration: number;
+  longestStreak: number;
+  currentStreak: number;
+}
+
+export interface YogaTimelineProps {
+  data: YogaPracticeEntry[];
+  timeRange: YogaTimeRange;
+  onTimeRangeChange: (range: YogaTimeRange) => void;
+  isLoading?: boolean;
+  error?: string;
+}
+
+// For the stacked bar chart data structure
+export interface YogaTimelineBarData {
+  date: string;
+  [key: string]: string | number; // For dynamic yoga type properties
+  total?: number;
+}
+
+// For the timeline tooltip
+export interface YogaTimelineTooltipProps {
+  date: string;
+  practices: YogaPracticeEntry[];
+  total: number;
+}
